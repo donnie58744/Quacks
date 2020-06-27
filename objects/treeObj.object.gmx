@@ -30,7 +30,14 @@
        instance_destroy();
        global.inventory[2] = 3;
        global.numWood +=1;
+       
+       instance_create(random_range(100,750),random_range(100,650),treeObj);
     }
+}
+
+if (distance_to_object(treeObj) &lt; 50) {
+    instance_destroy(id);
+    instance_create(random_range(100,750),random_range(100,650),treeObj);
 }
 </string>
           </argument>

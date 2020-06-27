@@ -17,6 +17,7 @@
     <sprite>sprites\borderSpr</sprite>
     <sprite>sprites\itemsSpr</sprite>
     <sprite>sprites\treeSpr</sprite>
+    <sprite>sprites\invWall</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\dirt</background>
@@ -32,8 +33,10 @@
     <object>objects\wallObj</object>
     <object>objects\treeObj</object>
     <object>objects\craftMenu</object>
+    <object>objects\displayManObj</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\init_room</room>
     <room>rooms\main</room>
     <room>rooms\cave</room>
     <room>rooms\tree</room>

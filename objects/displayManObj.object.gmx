@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-1000</depth>
+  <depth>0</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,18 +25,36 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>globalvar showCraftingMenu;
-showCraftingMenu = false;
+            <string>ideal_width=0;
+ideal_height=1080;
+zoom=1;
+toggleFullscreen = 0;
 
-for (i = 0; i &lt; maxItems; i+=1;) {
-    global.inventory[i] = -1;
+aspect_ratio=display_get_width()/display_get_height();
+
+ideal_width=round(ideal_height*aspect_ratio);
+
+if(ideal_width &amp; 1) {
+    ideal_width++;
 }
+
+for(var i=1; i&lt;=room_last; i++) {
+    if(room_exists(i)){
+        room_set_view(i,0,true,0,0,ideal_width,ideal_height,0,0,1,1,0,0,0,0,-1);
+        room_set_view_enabled(i,true);
+    }
+}
+
+surface_resize(application_surface,ideal_width,ideal_height);
+window_set_size(ideal_width,ideal_height);
+
+room_goto(room_next(room));
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -53,26 +71,29 @@ for (i = 0; i &lt; maxItems; i+=1;) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (showCraftingMenu) {
-    var x1,x2,y1,y2;
-    x1 = view_xview[0];
-    x2 = 212;
-    y1 = 200;
-    y2 = y1 + 64;
-    
-    draw_set_color(c_black);
-    draw_set_alpha(0.8);
-    draw_rectangle(x1,y1,x2,y2,0);
-    draw_set_alpha(1);
-    
-    for (i = 0; i &lt; maxItems; i += 1) {
-        draw_sprite(borderSpr,0,x1+24+(i*40),y2-24);
-        if (global.inventory[i] != -1){
-            draw_sprite(itemsSpr,global.inventory[i],x1+24+(i*40),y2-24);
-            
-        }
+            <string>// Fullscreen
+
+key_fullScreen = keyboard_check_released(ord("F"));
+
+if (toggleFullscreen == 0) {
+    window_set_fullscreen(false)
+}
+
+else {
+     window_set_fullscreen(true) 
+}
+
+if(key_fullScreen){
+    if (toggleFullscreen == 1) {
+        toggleFullscreen = 0;
+        
+        window_set_size(ideal_width,ideal_height);
     }
-} 
+    
+    else {
+        toggleFullscreen = 1;
+    }
+}  
 </string>
           </argument>
         </arguments>

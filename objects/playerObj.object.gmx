@@ -61,7 +61,7 @@ key_up = keyboard_check(ord("W"));
 key_down = keyboard_check(ord("S"));
 key_shift = keyboard_check_pressed(vk_lshift);
 key_shift_relesed = keyboard_check_released(vk_lshift);
-key_buyPick = keyboard_check_released(ord("P"));
+key_openCrafting = keyboard_check_pressed(ord("E"));
 
 if (key_left and place_free(x - colSpeed, y)) {
     x -= walkSpeed;
@@ -94,14 +94,23 @@ if (key_shift_relesed) {
 }
 
 
-// Buy Items
-if (key_buyPick) {
-    if (numRocks &gt;= 1 and numWood &gt;= 1 and !global.inventory[4]){
+// Craft Items
+if (key_openCrafting) {
+    if (global.showCraftingMenu == false){
+        global.showCraftingMenu = true;
+    }
+    
+    else {
+        global.showCraftingMenu = false;
+    }
+    
+    /* if (numRocks &gt;= 1 and numWood &gt;= 1 and !global.inventory[4]){
         global.numRocks-=1;
         global.numWood-=1;
         global.inventory[4] = 1;
         pickAxe = true;
     }
+    */
 }
 
 // Idle Check
